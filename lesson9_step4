@@ -1,0 +1,31 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+from math import log, sin
+
+
+url = 'http://suninjuly.github.io/alert_accept.html'
+driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+
+
+def func(x):
+    return str(log(abs(12*sin(int(x)))))
+
+
+def func_button():
+    button = driver.find_element_by_class_name('btn.btn-primary')
+    return button.click()
+
+
+try:
+    driver.get(url)
+    func_button()
+    confirm = driver.switch_to.alert
+    confirm.accept()
+    var_x = driver.find_element_by_id('input_value')
+    answer = driver.find_element_by_id('answer')
+    answer.send_keys(func(func_x))
+    func_button()
+finally:
+    time.sleep(10)
+    driver.quit()
